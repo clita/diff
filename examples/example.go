@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	diff "github.com/clita/diff"
+	"github.com/clita/diff"
 )
 
 
