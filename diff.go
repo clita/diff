@@ -54,6 +54,9 @@ func FindColouredChanges(firstString string, secondString string, splitBy string
 
 		colouredStringLeft, _  = findLCSDeletions(firstString, lcsLineString, secondString, "lines")
 		colouredStringRight,_  = findLCSAdditions(firstString, lcsLineString, secondString, "lines")
+
+		colouredStringLeft  = trim(colouredStringLeft, '\n')
+		colouredStringRight = trim(colouredStringRight, '\n')
 	}
 
 	return colouredStringLeft, colouredStringRight
