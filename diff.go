@@ -1,23 +1,22 @@
 package diff
 
 import (
-	"strings"
-	"regexp"
 	"errors"
+	"regexp"
+	"strings"
 )
 
 const INF = 10000000000
-
 
 // Function that returns coloured strings by finding deletions im firstString and additions in secondString
 // If splitBy is "words", one word is considered as one unit
 // Else if splitBy is "lines", one line is considered as one unit
 func FindColouredChanges(firstString string, secondString string, splitBy string) (string, string) {
-	
+
 	var colouredStringLeft, colouredStringRight string
 
 	if splitBy == "words" {
-		
+
 		splitRegex := regexp.MustCompile("[\n \t]+")
 
 		input1 := splitRegex.Split(firstString, INF)
@@ -33,9 +32,8 @@ func FindColouredChanges(firstString string, secondString string, splitBy string
 		lcsWordString = trim(lcsWordString, ' ')
 		// fmt.Println(lcsWordString)
 
-		colouredStringLeft, _  = findLCSDeletions(firstString, lcsWordString, secondString, "words")
-		colouredStringRight,_  = findLCSAdditions(firstString, lcsWordString, secondString, "words")
-
+		colouredStringLeft, _ = findLCSDeletions(firstString, lcsWordString, secondString, "words")
+		colouredStringRight, _ = findLCSAdditions(firstString, lcsWordString, secondString, "words")
 
 	} else if splitBy == "lines" {
 
@@ -52,18 +50,17 @@ func FindColouredChanges(firstString string, secondString string, splitBy string
 		lcsLineString = trim(lcsLineString, '\n')
 		// fmt.Println(lcsLineString)
 
-		colouredStringLeft, _  = findLCSDeletions(firstString, lcsLineString, secondString, "lines")
-		colouredStringRight,_  = findLCSAdditions(firstString, lcsLineString, secondString, "lines")
+		colouredStringLeft, _ = findLCSDeletions(firstString, lcsLineString, secondString, "lines")
+		colouredStringRight, _ = findLCSAdditions(firstString, lcsLineString, secondString, "lines")
 
-		colouredStringLeft  = trim(colouredStringLeft, '\n')
+		colouredStringLeft = trim(colouredStringLeft, '\n')
 		colouredStringRight = trim(colouredStringRight, '\n')
 	}
 
 	return colouredStringLeft, colouredStringRight
 }
 
-
-// Function that returns lcs string formed by concatenating words in lcs word array with spaces 
+// Function that returns lcs string formed by concatenating words in lcs word array with spaces
 // when one word is considered as one unit
 func lcsByWords(s1 []string, s2 []string, indexS1 int, indexS2 int, memo [][]string) string {
 	lenghtS1, lenghtS2 := len(s1), len(s2)
@@ -98,7 +95,6 @@ func lcsByWords(s1 []string, s2 []string, indexS1 int, indexS2 int, memo [][]str
 	}
 }
 
-
 // Function to calculate lcs string when each line of string is considered as separate unit
 func lcsByLines(s1 []string, s2 []string, indexS1 int, indexS2 int, memo [][]string) string {
 
@@ -113,7 +109,7 @@ func lcsByLines(s1 []string, s2 []string, indexS1 int, indexS2 int, memo [][]str
 	}
 
 	if s1[indexS1] == s2[indexS2] {
-		
+
 		if indexS1 == (lenghtS1-1) || indexS2 == (lenghtS2-1) {
 			memo[indexS1][indexS2] = string(s1[indexS1])
 		} else {
@@ -135,18 +131,17 @@ func lcsByLines(s1 []string, s2 []string, indexS1 int, indexS2 int, memo [][]str
 	return memo[indexS1][indexS2]
 }
 
-
 // This function finds the words(if splitBy = "words") / lines(if splitBy = "lines") that are not present in
 // originalString but are there in modifiedString using the lcsString
 //
-// if splitBy == "words", lcsString is the string formed by concatenating words in lcs by words array with spaces  
+// if splitBy == "words", lcsString is the string formed by concatenating words in lcs by words array with spaces
 // when one word is considered as one unit
-// 
-// if splitBy == "lines", lcsString is string formed by concatenating lines by '\n' in lcs by lines array 
+//
+// if splitBy == "lines", lcsString is string formed by concatenating lines by '\n' in lcs by lines array
 // when each line of string is considered as separate unit
-func findLCSAdditions(originalString string ,lcsString string, modifiedString string, splitBy string) (string, error) {
+func findLCSAdditions(originalString string, lcsString string, modifiedString string, splitBy string) (string, error) {
 	// Intial Check
-	if (len(lcsString) > len(modifiedString)) || ((len(lcsString) > len(originalString))) {
+	if (len(lcsString) > len(modifiedString)) || (len(lcsString) > len(originalString)) {
 		return "", errors.New("Wrong inputs!")
 	}
 
@@ -164,16 +159,16 @@ func findLCSAdditions(originalString string ,lcsString string, modifiedString st
 			lcsArray = strings.Split(lcsString, " ")
 		}
 
-		finalColouredString=delimArray[0]
+		finalColouredString = delimArray[0]
 
 		j := 0
 		for i := 0; i < len(modifiedStringArray); i++ {
-			if (j<len(lcsArray)) && (modifiedStringArray[i] == lcsArray[j]) {
+			if (j < len(lcsArray)) && (modifiedStringArray[i] == lcsArray[j]) {
 				finalColouredString = finalColouredString + modifiedStringArray[i] + delimArray[i+1]
 				j++
 			} else {
 				finalColouredString = finalColouredString + "[" + modifiedStringArray[i] + "]" + "(fg-green,fg-bold)"
-				if (i+1 < len(delimArray)) {
+				if i+1 < len(delimArray) {
 					finalColouredString = finalColouredString + delimArray[i+1]
 				}
 			}
@@ -184,12 +179,12 @@ func findLCSAdditions(originalString string ,lcsString string, modifiedString st
 		if len(lcsString) != 0 {
 			lcsArray = strings.Split(lcsString, "\n")
 		}
-			
-	    modifiedStringArray := strings.Split(modifiedString, "\n")
+
+		modifiedStringArray := strings.Split(modifiedString, "\n")
 
 		j := 0
 		for i := 0; i < len(modifiedStringArray); i++ {
-			if (j<len(lcsArray)) && (modifiedStringArray[i] == lcsArray[j]) {
+			if (j < len(lcsArray)) && (modifiedStringArray[i] == lcsArray[j]) {
 				finalColouredString = finalColouredString + modifiedStringArray[i] + "\n"
 				j++
 			} else {
@@ -202,18 +197,17 @@ func findLCSAdditions(originalString string ,lcsString string, modifiedString st
 	return finalColouredString, nil
 }
 
-
 // This function finds the words(if splitBy = "words") / lines(if splitBy = "lines") that are present in
 // originalString but not in modifiedString using lcsString
 //
-// if splitBy == "words", lcsString is the string formed by concatenating words in lcs by words array with spaces  
+// if splitBy == "words", lcsString is the string formed by concatenating words in lcs by words array with spaces
 // when one word is considered as one unit
-// 
-// if splitBy == "lines", lcsString is string formed by concatenating lines by '\n' in lcs by lines array 
+//
+// if splitBy == "lines", lcsString is string formed by concatenating lines by '\n' in lcs by lines array
 // when each line of string is considered as separate unit
 func findLCSDeletions(originalString string, lcsString string, modifiedString string, splitBy string) (string, error) {
 	// Intial Check
-	if (len(lcsString) > len(modifiedString)) || ((len(lcsString) > len(originalString))) {
+	if (len(lcsString) > len(modifiedString)) || (len(lcsString) > len(originalString)) {
 		return "", errors.New("Wrong inputs!")
 	}
 
@@ -232,33 +226,33 @@ func findLCSDeletions(originalString string, lcsString string, modifiedString st
 			lcsArray = strings.Split(lcsString, " ")
 		}
 
-		finalColouredString=delimArray[0]
+		finalColouredString = delimArray[0]
 
 		j := 0
 		for i := 0; i < len(originalStringArray); i++ {
-			if (j<len(lcsArray)) && (originalStringArray[i] == lcsArray[j]) {
+			if (j < len(lcsArray)) && (originalStringArray[i] == lcsArray[j]) {
 				finalColouredString = finalColouredString + originalStringArray[i] + delimArray[i+1]
 				j++
 			} else {
 				finalColouredString = finalColouredString + "[" + originalStringArray[i] + "]" + "(fg-red,fg-bold)"
-				if (i+1 < len(delimArray)) {
+				if i+1 < len(delimArray) {
 					finalColouredString = finalColouredString + delimArray[i+1]
 				}
 			}
 		}
 
 	} else if splitBy == "lines" {
-		
+
 		var lcsArray []string
 		if len(lcsString) != 0 {
 			lcsArray = strings.Split(lcsString, "\n")
 		}
 
-	    originalStringArray := strings.Split(originalString, "\n")
+		originalStringArray := strings.Split(originalString, "\n")
 
 		j := 0
 		for i := 0; i < len(originalStringArray); i++ {
-			if (j<len(lcsArray)) && (originalStringArray[i] == lcsArray[j]) {
+			if (j < len(lcsArray)) && (originalStringArray[i] == lcsArray[j]) {
 				finalColouredString = finalColouredString + originalStringArray[i] + "\n"
 				j++
 			} else {
@@ -272,10 +266,10 @@ func findLCSDeletions(originalString string, lcsString string, modifiedString st
 }
 
 // Remove last newline of string
-func trim(str string, ch byte) string{
+func trim(str string, ch byte) string {
 	sz := len(str)
 	if sz > 0 && str[sz-1] == ch {
-	    str = str[:sz-1]
+		str = str[:sz-1]
 	}
 	return str
 }
