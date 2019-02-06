@@ -10,6 +10,6 @@ func main() {
 	b := "Hello Vaibhav how are you doing night, you must be doing  good"
 
 	// string1, string2 := diff.FindColouredChanges(a, b, "lines")
-	string1, string2 := diff.FindColouredChanges(a, b, "words")
+	string1, string2 := diff.FindColouredChanges(a, b, "words", true)
 	fmt.Println("String1: \n" + string1 + "\n\n" + "String2: \n" + string2)
 }
