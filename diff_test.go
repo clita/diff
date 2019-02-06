@@ -16,7 +16,7 @@ func TestFindColouredChangesLines(t *testing.T) {
 
 	for _, table := range tables {
 
-		output1, output2 := FindColouredChanges(table.input1, table.input2, "lines")
+		output1, output2 := FindColouredChanges(table.input1, table.input2, "lines", false)
 		if (output1 != table.output1) || (output2 != table.output2) {
 			t.Errorf("FindColouredChanges (by lines) of (%s & %s) was incorrect, got: %s & %s, want: %s & %s.", table.input1, table.input2, output1, output2, table.output1, table.output2)
 		}
@@ -37,7 +37,7 @@ func TestFindColouredChangesWords(t *testing.T) {
 
 	for _, table := range tables {
 
-		output1, output2 := FindColouredChanges(table.input1, table.input2, "words")
+		output1, output2 := FindColouredChanges(table.input1, table.input2, "words", false)
 		if output1 != table.output1 || output2 != table.output2 {
 			t.Errorf("FindColouredChanges (by lines) of (%s & %s) was incorrect, got: %s & %s, want: %s & %s.", table.input1, table.input2, output1, output2, table.output1, table.output2)
 		}
