@@ -8,7 +8,10 @@ Diff module for clita application.
 
 ### Usage: 
 ```go
+
+  // Return strings formatted according to colour codes
   diff.FindColouredChanges(firstString, secondString, splitBy, stdoutPrint)
+  
   // firstString, secondString - Strings to compare
   // splitBy = "words" compared strings word by word, splitBy = "lines" to compare strings line by line
   // stdoutPrint boolean to tell which colour codes to use, 
