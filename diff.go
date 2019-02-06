@@ -269,7 +269,7 @@ func findLCSDeletions(originalString string, lcsString string, modifiedString st
 			} else if stdoutPrint == false {
 				finalColouredString = finalColouredString + "[-" + originalStringArray[i] + "]" + "(fg-red,fg-bold)\n"
 			} else {
-				finalColouredString = finalColouredString + "\033[31m" + originalStringArray[i] + "\033[0m\n"
+				finalColouredString = finalColouredString + "\033[31m-" + originalStringArray[i] + "\033[0m\n"
 			}
 		}
 
