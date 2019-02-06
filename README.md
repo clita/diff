@@ -1,5 +1,5 @@
 # diff
-Diff module for clita application.  
+Diff module for clita application. Implemented using Memoized Longest Common Subsequence algorithm.
 
 ### Install:
 ```sh
