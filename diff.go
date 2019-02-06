@@ -168,7 +168,7 @@ func findLCSAdditions(originalString string, lcsString string, modifiedString st
 				j++
 			} else {
 				if stdoutPrint == true {
-					finalColouredString = finalColouredString + "\\e[32m" + modifiedStringArray[i] + "\\e[0m"
+					finalColouredString = finalColouredString + "\033[32m" + modifiedStringArray[i] + "\033[0m"
 				} else {
 					finalColouredString = finalColouredString + "[" + modifiedStringArray[i] + "]" + "(fg-green,fg-bold)"
 				}
@@ -195,7 +195,7 @@ func findLCSAdditions(originalString string, lcsString string, modifiedString st
 			} else if stdoutPrint == false {
 				finalColouredString = finalColouredString + "[+" + modifiedStringArray[i] + "]" + "(fg-green,fg-bold)\n"
 			} else {
-				finalColouredString = finalColouredString + "\\e[32m+" + modifiedStringArray[i] + "\\e[0m\n"
+				finalColouredString = finalColouredString + "\033[32m+" + modifiedStringArray[i] + "\033[0m\n"
 			}
 		}
 
@@ -242,7 +242,7 @@ func findLCSDeletions(originalString string, lcsString string, modifiedString st
 				j++
 			} else {
 				if stdoutPrint == true {
-					finalColouredString = finalColouredString + "\\e[31m" + originalStringArray[i] + "\\e[0m"
+					finalColouredString = finalColouredString + "\033[31m" + originalStringArray[i] + "\033[0m"
 				} else {
 					finalColouredString = finalColouredString + "[" + originalStringArray[i] + "]" + "(fg-red,fg-bold)"
 				}
@@ -269,7 +269,7 @@ func findLCSDeletions(originalString string, lcsString string, modifiedString st
 			} else if stdoutPrint == false {
 				finalColouredString = finalColouredString + "[-" + originalStringArray[i] + "]" + "(fg-red,fg-bold)\n"
 			} else {
-				finalColouredString = finalColouredString + "\\e[31m" + originalStringArray[i] + "\\e[0m\n"
+				finalColouredString = finalColouredString + "\033[31m" + originalStringArray[i] + "\033[0m\n"
 			}
 		}
 
