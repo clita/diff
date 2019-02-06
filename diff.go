@@ -164,7 +164,12 @@ func findLCSAdditions(originalString string, lcsString string, modifiedString st
 		j := 0
 		for i := 0; i < len(modifiedStringArray); i++ {
 			if (j < len(lcsArray)) && (modifiedStringArray[i] == lcsArray[j]) {
-				finalColouredString = finalColouredString + modifiedStringArray[i] + delimArray[i+1]
+				finalColouredString = finalColouredString + modifiedStringArray[i]
+
+				if i+1 < len(delimArray) {
+					finalColouredString = finalColouredString + delimArray[i+1]
+				}
+
 				j++
 			} else {
 				if stdoutPrint == true {
@@ -238,7 +243,12 @@ func findLCSDeletions(originalString string, lcsString string, modifiedString st
 		j := 0
 		for i := 0; i < len(originalStringArray); i++ {
 			if (j < len(lcsArray)) && (originalStringArray[i] == lcsArray[j]) {
-				finalColouredString = finalColouredString + originalStringArray[i] + delimArray[i+1]
+				finalColouredString = finalColouredString + originalStringArray[i]
+				
+				if i+1 < len(delimArray) {
+					finalColouredString = finalColouredString + delimArray[i+1]
+				}
+				
 				j++
 			} else {
 				if stdoutPrint == true {
