@@ -170,7 +170,7 @@ func findLCSAdditions(originalString string, lcsString string, modifiedString st
 				if stdoutPrint == true {
 					finalColouredString = finalColouredString + "\033[32m" + modifiedStringArray[i] + "\033[0m"
 				} else {
-					finalColouredString = finalColouredString + "[" + modifiedStringArray[i] + "]" + "(fg-green,fg-bold)"
+					finalColouredString = finalColouredString + "[" + modifiedStringArray[i] + "]" + "(fg:green,fg:bold)"
 				}
 				
 				if i+1 < len(delimArray) {
@@ -193,7 +193,7 @@ func findLCSAdditions(originalString string, lcsString string, modifiedString st
 				finalColouredString = finalColouredString + modifiedStringArray[i] + "\n"
 				j++
 			} else if stdoutPrint == false {
-				finalColouredString = finalColouredString + "[+" + modifiedStringArray[i] + "]" + "(fg-green,fg-bold)\n"
+				finalColouredString = finalColouredString + "[+" + modifiedStringArray[i] + "]" + "(fg:green,fg:bold)\n"
 			} else {
 				finalColouredString = finalColouredString + "\033[32m+" + modifiedStringArray[i] + "\033[0m\n"
 			}
@@ -244,7 +244,7 @@ func findLCSDeletions(originalString string, lcsString string, modifiedString st
 				if stdoutPrint == true {
 					finalColouredString = finalColouredString + "\033[31m" + originalStringArray[i] + "\033[0m"
 				} else {
-					finalColouredString = finalColouredString + "[" + originalStringArray[i] + "]" + "(fg-red,fg-bold)"
+					finalColouredString = finalColouredString + "[" + originalStringArray[i] + "]" + "(fg:red,fg:bold)"
 				}
 				if i+1 < len(delimArray) {
 					finalColouredString = finalColouredString + delimArray[i+1]
@@ -267,7 +267,7 @@ func findLCSDeletions(originalString string, lcsString string, modifiedString st
 				finalColouredString = finalColouredString + originalStringArray[i] + "\n"
 				j++
 			} else if stdoutPrint == false {
-				finalColouredString = finalColouredString + "[-" + originalStringArray[i] + "]" + "(fg-red,fg-bold)\n"
+				finalColouredString = finalColouredString + "[-" + originalStringArray[i] + "]" + "(fg:red,fg:bold)\n"
 			} else {
 				finalColouredString = finalColouredString + "\033[31m-" + originalStringArray[i] + "\033[0m\n"
 			}
